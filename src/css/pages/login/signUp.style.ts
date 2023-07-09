@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import "../../common.css";
+import exp from "constants";
 
 export const Container = styled.div`
     width: 100vw;
@@ -9,7 +10,7 @@ export const Container = styled.div`
 
 export const Wrap = styled.div`
     width: 340px;
-    margin: auto;
+    margin: 100px auto 0;
     padding-bottom: 20px;
     border-bottom: 1px solid rgb(231, 231, 231);
 `;
@@ -19,7 +20,6 @@ export const Logo = styled.img`
     display: block;
     margin: auto;
     padding: 100px 0 50px;
-    cursor: pointer;
 `;
 
 export const InputWrap = styled.div`
@@ -75,84 +75,6 @@ export const Validation = styled.div`
     letter-spacing: -0.01em;
 `;
 
-export const LoginStayWrap = styled.div`
-    width: 100%;
-    height: 22px;
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: #767676;
-    font-size: 14px;
-    line-height: 22px;
-    letter-spacing: -0.01em;
-    font-weight: 400;
-`;
-
-export const InputCheckboxLabel = styled.label`
-    display: inline-block;
-    position: relative;
-    padding: 2px 0 0 30px;
-    font-size: 14px;
-    letter-spacing: -0.01em;
-    line-height: 20px;
-    color: #000;
-    cursor: pointer;
-    vertical-align: top;
-
-    input[type="checkbox"] {
-        appearance: none;
-    }
-
-    input[type="checkbox"]:checked {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 24px;
-        height: 24px;
-        border: 1px solid rgb(70, 78, 164);
-        border-radius: 50%;
-        background-color: rgb(70, 78, 164);
-        background-position: center 8px;
-        background-repeat: no-repeat;
-        background-size: 10px 7px;
-        background-image: url(https://contents.kyobobook.co.kr/resources/fo/images/common/ink/ico_checkbox@2x.png);
-    }
-
-    &:before {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 22px;
-        height: 22px;
-        border-radius: 50%;
-        border: 1px solid #ccc;
-        transition: 0.2s;
-        background-position: center 8px;
-        background-repeat: no-repeat;
-        background-size: 10px 7px;
-        background-image: url(https://contents.kyobobook.co.kr/resources/fo/images/common/ink/ico_checkbox@2x.png);
-    }
-`;
-
-export const OAuthLoginWrap = styled.div`
-    width: 50%;
-    margin: 30px auto 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-`;
-
-export const OAuthLoginIcon = styled.img`
-    width: 40px;
-    //height: 30px;
-    cursor: pointer;
-`;
-
 export const Button = styled.button`
     width: 100%;
     height: 50px;
@@ -176,17 +98,7 @@ export const ButtonLogin = styled(Button)<{ isEmpty: boolean }>`
     }
 `;
 
-export const ButtonSignup = styled(Button)`
-    color: #474c98;
-    border: 1px solid #5055b1;
-    background: #fff;
-
-    &:hover {
-        background: rgb(236, 237, 246);
-    }
-`;
-
-export const ButtonNonMember = styled(Button)`
+export const ButtonCancel = styled(Button)`
     color: #595959;
     background: #fff;
     border: 1px solid #ccc;
@@ -195,17 +107,6 @@ export const ButtonNonMember = styled(Button)`
     &:hover {
         background: rgb(240, 240, 240);
     }
-`;
-
-export const ExplainText = styled.div`
-    width: 100%;
-    margin: 16px 0 30px;
-    font-size: 13px;
-    line-height: 19px;
-    letter-spacing: -0.01em;
-    color: #767676;
-    text-align: center;
-    word-break: keep-all;
 `;
 
 export const Footer = styled.div`

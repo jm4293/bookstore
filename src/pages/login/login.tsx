@@ -38,7 +38,7 @@ const Login = () => {
         naverLogin.init();
     };
 
-    const getNaverToken = () => {
+    const OauthGetNaverToken = () => {
         if (!location.hash) return;
         const token = location.hash.split("=")[1].split("&")[0];
     };
@@ -48,18 +48,19 @@ const Login = () => {
             .then(userCredential => {
                 // Signed in
                 const user = userCredential.user;
-                console.log(user);
-                // ...
+
+                console.log("user", user);
             })
             .catch(error => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                console.log(errorCode);
-                console.log(errorMessage);
+
+                console.log("errorCode", errorCode);
+                console.log("errorMessage", errorMessage);
             });
     };
 
-    const OauthGoogle = () => {
+    const OauthGoogleLogin = () => {
         const provider = new GoogleAuthProvider();
 
         signInWithPopup(auth, provider)
@@ -71,9 +72,9 @@ const Login = () => {
                 const user = result.user;
                 // IdP data available using getAdditionalUserInfo(result)
 
-                console.log(credential);
-                console.log(token);
-                console.log(user);
+                console.log("credential", credential);
+                console.log("token", token);
+                console.log("user", user);
             })
             .catch(error => {
                 // Handle Errors here.
@@ -84,10 +85,10 @@ const Login = () => {
                 // The AuthCredential type that was used.
                 const credential = GoogleAuthProvider.credentialFromError(error);
 
-                console.log(errorCode);
-                console.log(errorMessage);
-                console.log(email);
-                console.log(credential);
+                console.log("errorCode", errorCode);
+                console.log("errorMessage", errorMessage);
+                console.log("email", email);
+                console.log("credential", credential);
             });
     };
 
@@ -101,7 +102,7 @@ const Login = () => {
         <>
             <S.Container>
                 <S.Wrap>
-                    <S.Logo src="images/img_logo_kyobo_member@2x.png" onClick={() => navigate("/")} />
+                    <S.Logo src="/images/img_logo_kyobo_member@2x.png" onClick={() => navigate("/")} />
                     <S.InputWrap>
                         <S.Input
                             type="text"
@@ -123,7 +124,7 @@ const Login = () => {
                             placeholder="비밀번호를 입력해 주세요"
                         />
                         <S.InputPasswordIcon
-                            src={isPasswordIconClick ? "images/ico_eye_active@2x.png" : "images/ico_eye@2x.png"}
+                            src={isPasswordIconClick ? "/images/ico_eye_active@2x.png" : "/images/ico_eye@2x.png"}
                             onClick={() => setIsPasswordIconCLick(!isPasswordIconClick)}
                         />
                     </S.InputWrap>
@@ -133,7 +134,7 @@ const Login = () => {
                         ) : (
                             <S.Validation>비밀번호를 입력해 주세요</S.Validation>
                         ))}
-                    <S.ButtonLogin validation={inputData.id !== "" && inputData.pw !== ""} onClick={FirebaseLogin}>
+                    <S.ButtonLogin isEmpty={inputData.id !== "" && inputData.pw !== ""} onClick={FirebaseLogin}>
                         로그인
                     </S.ButtonLogin>
                     <S.LoginStayWrap>
@@ -145,14 +146,14 @@ const Login = () => {
                     </S.LoginStayWrap>
 
                     <S.OAuthLoginWrap>
-                        <div id="naverIdLogin" onClick={getNaverToken} />
-                        <S.OAuthLoginIcon src="/images/ico_sns_google@2x.png" alt="" onClick={OauthGoogle} />
+                        <div id="naverIdLogin" onClick={OauthGetNaverToken} />
+                        <S.OAuthLoginIcon src="/images/ico_sns_google@2x.png" alt="" onClick={OauthGoogleLogin} />
                     </S.OAuthLoginWrap>
 
                     <S.ExplainText>
                         개인정보 보호를 위해 공용 PC에서 사용 시 SNS계정의 로그아웃 상태를 꼭 확인해 주세요.
                     </S.ExplainText>
-                    <S.ButtonSignup>회원가입</S.ButtonSignup>
+                    <S.ButtonSignup onClick={() => navigate("/login/register")}>회원가입</S.ButtonSignup>
                     <S.ButtonNonMember>비회원 주문조회</S.ButtonNonMember>
                 </S.Wrap>
             </S.Container>
