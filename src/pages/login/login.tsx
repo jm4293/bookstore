@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import * as S from "../../css/pages/login/login.style";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../util/firebase/firebase";
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 declare global {
     interface Window {
         naver: any;
     }
 }
-
-const { naver } = window;
 
 type inputData = { id: string; pw: string };
 
@@ -17,7 +18,9 @@ const Login = () => {
     const [validation, setValidation] = useState<number>(0);
     const [isPasswordIconClick, setIsPasswordIconCLick] = useState<Boolean>(false);
 
+    const navigate = useNavigate();
     const location = useLocation();
+    const { naver } = window;
 
     useEffect(() => {
         OauthNaverInit();
@@ -34,17 +37,71 @@ const Login = () => {
 
         naverLogin.init();
     };
+
     const getNaverToken = () => {
         if (!location.hash) return;
         const token = location.hash.split("=")[1].split("&")[0];
-        console.log("dddd", token);
+    };
+
+    const FirebaseLogin = () => {
+        signInWithEmailAndPassword(auth, inputData.id, inputData.pw)
+            .then(userCredential => {
+                // Signed in
+                const user = userCredential.user;
+                console.log(user);
+                // ...
+            })
+            .catch(error => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+    };
+
+    const OauthGoogle = () => {
+        const provider = new GoogleAuthProvider();
+
+        signInWithPopup(auth, provider)
+            .then(result => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential!.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                // IdP data available using getAdditionalUserInfo(result)
+
+                console.log(credential);
+                console.log(token);
+                console.log(user);
+            })
+            .catch(error => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+
+                console.log(errorCode);
+                console.log(errorMessage);
+                console.log(email);
+                console.log(credential);
+            });
+    };
+
+    const keyUpEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+            inputData.id !== "" && inputData.pw !== "" && FirebaseLogin();
+        }
     };
 
     return (
         <>
             <S.Container>
                 <S.Wrap>
-                    <S.Logo src="images/img_logo_kyobo_member@2x.png" />
+                    <S.Logo src="images/img_logo_kyobo_member@2x.png" onClick={() => navigate("/")} />
                     <S.InputWrap>
                         <S.Input
                             type="text"
@@ -62,10 +119,11 @@ const Login = () => {
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                                 setInputData({ ...inputData, pw: e.target.value })
                             }
+                            onKeyUp={keyUpEnter}
                             placeholder="비밀번호를 입력해 주세요"
                         />
                         <S.InputPasswordIcon
-                            src="images/ico_eye@2x.png"
+                            src={isPasswordIconClick ? "images/ico_eye_active@2x.png" : "images/ico_eye@2x.png"}
                             onClick={() => setIsPasswordIconCLick(!isPasswordIconClick)}
                         />
                     </S.InputWrap>
@@ -75,10 +133,12 @@ const Login = () => {
                         ) : (
                             <S.Validation>비밀번호를 입력해 주세요</S.Validation>
                         ))}
-                    <S.ButtonLogin validation={inputData.id !== "" && inputData.pw !== ""}>로그인</S.ButtonLogin>
+                    <S.ButtonLogin validation={inputData.id !== "" && inputData.pw !== ""} onClick={FirebaseLogin}>
+                        로그인
+                    </S.ButtonLogin>
                     <S.LoginStayWrap>
                         <S.InputCheckboxLabel>
-                            <input type="checkbox" onChange={() => console.log("fff")} />
+                            <input type="checkbox" />
                             아이디 저장
                         </S.InputCheckboxLabel>
                         <div>아이디/비밀번호 찾기</div>
@@ -86,6 +146,7 @@ const Login = () => {
 
                     <S.OAuthLoginWrap>
                         <div id="naverIdLogin" onClick={getNaverToken} />
+                        <S.OAuthLoginIcon src="/images/ico_sns_google@2x.png" alt="" onClick={OauthGoogle} />
                     </S.OAuthLoginWrap>
 
                     <S.ExplainText>

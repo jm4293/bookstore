@@ -144,11 +144,17 @@ export const InputCheckboxLabel = styled.label`
 `;
 
 export const OAuthLoginWrap = styled.div`
-    width: 100%;
+    width: 50%;
+    margin: 30px auto 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border: 1px solid red;
+`;
+
+export const OAuthLoginIcon = styled.img`
+    width: 40px;
+    //height: 30px;
+    cursor: pointer;
 `;
 
 export const Button = styled.button`
@@ -199,6 +205,7 @@ export const ButtonNonMember = styled(Button)`
     color: #595959;
     background: #fff;
     border: 1px solid #ccc;
+    margin-top: 10px;
 
     &:hover {
         background: rgb(240, 240, 240);
