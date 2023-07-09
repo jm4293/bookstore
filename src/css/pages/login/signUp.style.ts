@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import "../../common.css";
-import exp from "constants";
 
 export const Container = styled.div`
     width: 100vw;

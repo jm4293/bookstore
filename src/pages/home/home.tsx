@@ -1,7 +1,9 @@
+import Header from "../../components/header";
+
 const Home = () => {
     return (
         <>
-            <div>123ggg</div>
+            <Header />
         </>
     );
 };
