@@ -4,7 +4,6 @@ import "../common.css";
 export const Frame = styled.div`
   width: 100vw;
   min-width: 1440px;
-  border: 1px solid red;
 `;
 
 export const BannerWrap = styled.div<{ isBanner: boolean }>`
@@ -55,50 +54,73 @@ export const BannerCancel = styled.div`
 `;
 
 export const HeaderWrap = styled.div`
-  width: 1200px;
+  width: 100vw;
   margin: auto;
 `;
 
 export const ServiceButtonWrap = styled.div`
+  width: 1200px;
+  margin: auto;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+`;
 
+export const Service = styled.div`
   ul {
     display: flex;
   }
 
   ul li {
     list-style: none;
-    margin-left: 10px;
+    width: 100px;
+    height: 33px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #595959;
+    font-size: 13px;
   }
 `;
 
-export const Service = styled.div`
-  width: 780px;
-  border: 1px solid red;
-
-  //ul {
-  //  display: flex;
-  //}
-  //
-  //ul li {
-  //  list-style: none;
-  //}
-`;
-
 export const User = styled.div`
-  border: 1px solid blue;
-  margin-left: 150px;
+  ul {
+    display: flex;
+  }
 
-  //ul {
-  //  display: flex;
-  //}
-  //
-  //ul li {
-  //  list-style: none;
-  //}
+  ul li {
+    list-style: none;
+    width: 70px;
+    height: 33px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #595959;
+    font-size: 13px;
+  }
 `;
 
-export const SearchWrap = styled.div``;
+export const SearchWrap = styled.div`
+  width: 1200px;
+  margin: auto;
+  display: flex;
+  //justify-content: space-between;
+  align-items: center;
+  border: 1px solid red;
+`;
 
+export const Logo = styled.img`
+  width: 171px;
+  margin-right: 40px;
+`;
+
+export const Search = styled.div`
+  width: 544px;
+  height: 48px;
+  border: 1px solid rgb(71, 79, 146);
+  border-radius: 24px;
+`;
+
+export const Mypage = styled.div``;
 export const GnbWrap = styled.div``;
